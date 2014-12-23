@@ -7,7 +7,8 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return array();
+       $nome = 'junao';
+        return array(array('nome'=>$nome));
     }
 
     public function fooAction()

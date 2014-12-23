@@ -2,7 +2,9 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Cliente\Controller\Index' => 'Cliente\Controller\IndexController',
+            //'Cliente\Controller\Index' => 'Cliente\Controller\IndexController',
+        
+            'cliente-controller-index' => 'Cliente\Controller\IndexController',
         ),
     ),
     'router' => array(
@@ -15,8 +17,8 @@ return array(
                     'defaults' => array(
                         // Change this value to reflect the namespace in which
                         // the controllers for your module are found
-                        '__NAMESPACE__' => 'Cliente\Controller',
-                        'controller'    => 'Index',
+                        //'__NAMESPACE__' => 'Cliente\Controller',
+                        'controller'    => 'cliente-controller-index',
                         'action'        => 'index',
                     ),
                 ),
