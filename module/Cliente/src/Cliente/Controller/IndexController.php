@@ -7,8 +7,18 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-       $nome = 'junao';
-        return array(array('nome'=>$nome));
+       $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+       
+       //pegar o repositorio da entidade
+       $repo = $em->getRepository('Cliente\Entity\ClienteRepository');
+       
+       
+       //buscar todos os dados da tabela cliente
+       $dados = $repo->findAll();
+       
+       
+       
+        return array(array($dados));
     }
 
     public function fooAction()
