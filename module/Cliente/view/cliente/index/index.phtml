@@ -1,4 +1,11 @@
-<h1>Ola <?php  echo $this->$nome ?> Seja Bem Vindo</h1>
+<h1>Lista de Nome</h1>
+<br/>
+
+<ul>
+    <?php foreach ($this->dados as $data): ?>
+        <li><?= $data->getNome(); ?></li>
+    <?php endforeach; ?>
+</ul>
 
 <strong>Module:</strong>        Cliente &raquo;
 <strong>Controller:</strong>    Controller &raquo;

@@ -12,13 +12,10 @@ class IndexController extends AbstractActionController
        //pegar o repositorio da entidade
        $repo = $em->getRepository('Cliente\Entity\ClienteRepository');
        
-       
        //buscar todos os dados da tabela cliente
        $dados = $repo->findAll();
        
-       
-       
-        return array(array($dados));
+        return array(array('dados'=>$dados));
     }
 
     public function fooAction()
