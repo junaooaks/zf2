@@ -1,8 +1,8 @@
 <?php
 namespace Cliente\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\Mvc\Controller\AbstractActionController,
+    Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
@@ -11,7 +11,6 @@ class IndexController extends AbstractActionController
        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
        
        //pegar o repositorio da entidade
-       //$repo = $em->getRepository('Cliente\Entity\ClienteRepository');
        $repo = $em->getRepository('Cliente\Entity\DadosCliente');
        
        //buscar todos os dados da tabela cliente
@@ -21,6 +20,13 @@ class IndexController extends AbstractActionController
        return new ViewModel(array('dados' => $dados));
     }
 
+    public function formAction()
+    {
+        
+        
+        return array();
+    }
+    
     public function fooAction()
     {
         // This shows the :controller and :action parameters in default route
