@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class DadosCliente {
     /**
-     * @ORM\id
+     * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      * @var int

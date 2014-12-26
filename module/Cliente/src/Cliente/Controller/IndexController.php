@@ -2,6 +2,7 @@
 namespace Cliente\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
@@ -16,7 +17,8 @@ class IndexController extends AbstractActionController
        //buscar todos os dados da tabela cliente
        $dados = $repo->findAll();
        
-        return array(array('dados'=>$dados));
+        //return array(array('dados'=>$dados));
+       return new ViewModel(array('dados' => $dados));
     }
 
     public function fooAction()
