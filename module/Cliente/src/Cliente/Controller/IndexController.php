@@ -10,7 +10,8 @@ class IndexController extends AbstractActionController
        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
        
        //pegar o repositorio da entidade
-       $repo = $em->getRepository('Cliente\Entity\ClienteRepository');
+       //$repo = $em->getRepository('Cliente\Entity\ClienteRepository');
+       $repo = $em->getRepository('Cliente\Entity\DadosCliente');
        
        //buscar todos os dados da tabela cliente
        $dados = $repo->findAll();
