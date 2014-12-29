@@ -26,25 +26,40 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    // This route is a sane default when developing a module;
-                    // as you solidify the routes for your module, however,
-                    // you may want to remove it and replace it with more
-                    // specific routes.
-                    'default' => array(
-                        'type'    => 'Segment',
+                    //Rota para roda a paginação na indexAction
+                    'default-index' => array(
+                        'type' => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action][/page/:page]]',
+                            'route' => '[/page/:page]',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
                             ),
                             'defaults' => array(
-                                'page'=>1,
+                                'controller' => 'Cliente\Controller\Index',
+                                'action' => 'index',
+                                'page' => 1
+                            ),
+                        ),
+                    ),
+                    //Rotas para rodar a paginação em outras action
+                    'default-pages' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:action][/page/:page]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Cliente\Controller\Index',
+                                'action' => 'index',
+                                'page' => 1
                             ),
                         ),
                     ),
                 ),
+                    
             ),
         ),
     ),
