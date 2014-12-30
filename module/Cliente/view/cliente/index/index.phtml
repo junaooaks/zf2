@@ -1,4 +1,4 @@
-<h1>Lista de Nome</h1>
+ <h1>Lista de Nome</h1>
 <br/>
 
 <table class="table">
@@ -17,3 +17,6 @@
     <?php endforeach; ?>
 
 </table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','paginator');?>
