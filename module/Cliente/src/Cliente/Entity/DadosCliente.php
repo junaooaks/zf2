@@ -10,6 +10,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 
 class DadosCliente {
+    
+    public function __construct($options = null) {
+        Configuration::configure($this, $options);
+        
+    }
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
