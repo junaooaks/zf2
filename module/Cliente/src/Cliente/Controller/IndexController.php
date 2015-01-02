@@ -40,6 +40,7 @@ class IndexController extends AbstractActionController
         
         //verificar se foi realizado o request
         if($request->isPost()){
+        
             //preencher os dados do formulario
             $form->setData($request->getPost());
             
@@ -52,7 +53,7 @@ class IndexController extends AbstractActionController
                 
                  
                 //retirecionar para a pagina de listar
-                //return $this->redirect()->toRoute('cliente',array('controller'=>'categorias'));
+                return $this->redirect()->toRoute('cliente',array('controller'=>'cliente-controller-index'));
                 
             }
         }

@@ -4,7 +4,7 @@
 <?php 
     $form = $this->form;
     
-    $form->setAttribute('action',$this->url('cliente', array('controller'=>'categorias','action'=>'new')));
+    $form->setAttribute('action',$this->url('cliente', array('controller'=>'cliente-controller-index','action'=>'new')));
     
     $form->prepare();
     echo $this->form()->openTag($form);
