@@ -19,6 +19,10 @@ class ClienteService{
     }
     
     public function insert(array $data) {
+        
+        var_dump($data);
+        die;
+        
         $entity = new DadosCliente($data);
         
         //caso nao cria a class entity\configurator

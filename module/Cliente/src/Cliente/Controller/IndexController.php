@@ -46,6 +46,7 @@ class IndexController extends AbstractActionController
             //verificar se o formulario esta valido
             if($form->isValid()){
                 //executar a insert
+               
                 $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
                 $service->insert($request->getPost()->toArray());
                 
