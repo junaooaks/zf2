@@ -12,7 +12,9 @@
         <tr>
             <td><?= $data->getId(); ?></td>
             <td><?= $data->getNome(); ?></td>
-            <td></td>
+            <td>
+                <a href="<?php echo $this->url('interna-pages', array('controller'=>'cliente-controller-index','action'=>'edit','id'=>$data->getId())); ?>">Editar</a>
+            </td>
         </tr>
     <?php endforeach; ?>
 
