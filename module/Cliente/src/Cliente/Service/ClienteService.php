@@ -37,6 +37,8 @@ class ClienteService{
     }
     
     public function update(array $data) {
+        
+       
             
         $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $data['id']);
         

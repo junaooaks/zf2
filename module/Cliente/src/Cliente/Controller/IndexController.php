@@ -80,11 +80,11 @@ class IndexController extends AbstractActionController {
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-
+                
                 $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
                 $service->update($request->getPost()->toArray());
 
-
+                
                 //retirecionar para a pagina de listar
                 return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
             }
