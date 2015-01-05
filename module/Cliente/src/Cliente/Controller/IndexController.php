@@ -25,7 +25,7 @@ class IndexController extends AbstractActionController {
         //criar uma paginação
         $paginator = new Paginator(new ArrayAdapter($dados));
         $paginator->setCurrentPageNumber($page);
-        $paginator->setDefaultItemCountPerPage(10);
+        $paginator->setDefaultItemCountPerPage(5);
 
         //return array(array('dados'=>$dados));
         return new ViewModel(array('dados' => $paginator, 'page' => $page));

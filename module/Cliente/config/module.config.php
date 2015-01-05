@@ -68,10 +68,10 @@ return array(
                                 'id' => '[0-9]+'
                             ),
                             'defaults' => array(
+                                'controller' => 'Cliente\Controller\Index',
                                 'action' => 'index',
                                 'id' => 1
                             ),
-                            
                         ),
                     ),
                 ),
