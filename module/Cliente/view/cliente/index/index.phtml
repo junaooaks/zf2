@@ -1,6 +1,9 @@
  <h1>Lista de Nome</h1>
 <br/>
 
+<p>
+    <a class="btn btn-success" href="<?php echo $this->url('cliente/default-pages', array('controller'=>'cliente-controller-index','action'=>'new')); ?>">Novo Registro</a>
+</p>
 <table class="table">
     <tr>
         <th>ID</th>
@@ -13,7 +16,7 @@
             <td><?= $data->getId(); ?></td>
             <td><?= $data->getNome(); ?></td>
             <td>
-                <a class="btn btn-success" href="<?php echo $this->url('interna-pages', array('controller'=>'cliente-controller-index','action'=>'edit','id'=>$data->getId())); ?>">Editar</a>
+                <a class="btn btn-success" href="<?php echo $this->url('cliente/interna-pages', array('controller'=>'cliente-controller-index','action'=>'edit','id'=>$data->getId())); ?>">Editar</a>
             </td>
         </tr>
     <?php endforeach; ?>

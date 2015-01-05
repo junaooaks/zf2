@@ -37,13 +37,17 @@ class ClienteService{
     }
     
     public function update(array $data) {
-        
-       
             
         $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $data['id']);
         
+        
         //automatizar os set da entidade
-        $entity = ClassMethods::hydrate($entity, $data);
+        //$entity = ClassMethods::hydrate($entity, $data);
+        
+        $entity = new DadosCliente($entity,$data);
+        
+//        var_dump('teste');
+//                die();
         
         $this->em->persist($entity);
         

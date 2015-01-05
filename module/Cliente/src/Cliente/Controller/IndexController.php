@@ -82,6 +82,7 @@ class IndexController extends AbstractActionController {
             if ($form->isValid()) {
                 
                 $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
+                
                 $service->update($request->getPost()->toArray());
 
                 

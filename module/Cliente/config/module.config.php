@@ -37,7 +37,7 @@ return array(
                                 'page' => '\d+'
                             ),
                             'defaults' => array(
-                                'controller' => 'Cliente\Controller\Index',
+                                'controller' => 'cliente-controller-index',
                                 'action' => 'index',
                                 'page' => 1
                             ),
@@ -53,7 +53,7 @@ return array(
                                 'page' => '\d+'
                             ),
                             'defaults' => array(
-                                'controller' => 'Cliente\Controller\Index',
+                                'controller' => 'cliente-controller-index',
                                 'action' => 'index',
                                 'page' => 1
                             ),
@@ -68,7 +68,7 @@ return array(
                                 'id' => '[0-9]+'
                             ),
                             'defaults' => array(
-                                'controller' => 'Cliente\Controller\Index',
+                                'controller' => 'cliente-controller-index',
                                 'action' => 'index',
                                 'id' => 1
                             ),
