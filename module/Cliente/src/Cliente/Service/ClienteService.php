@@ -3,7 +3,8 @@
 namespace Cliente\Service;
 
 use Doctrine\ORM\EntityManager,
-    Cliente\Entity\DadosCliente;
+    Cliente\Entity\DadosCliente,
+    Zend\Stdlib\Hydrator\ClassMethods;
 
 
 class ClienteService{
@@ -20,9 +21,6 @@ class ClienteService{
     
     public function insert(array $data) {
         
-        var_dump($data);
-        die;
-        
         $entity = new DadosCliente($data);
         
         //caso nao cria a class entity\configurator
@@ -37,6 +35,19 @@ class ClienteService{
         return $entity;
         
     }
+    
+    public function update(array $data) {
             
+        $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $data['id']);
+        
+        //automatizar os set da entidade
+        $entity = ClassMethods::hydrate($entity, $data);
+        
+        $this->em->persist($entity);
+        
+        $this->em->flush();
+        
+        return $entity;
+    }
     
 }

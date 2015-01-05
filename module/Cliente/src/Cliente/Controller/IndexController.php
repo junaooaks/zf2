@@ -1,4 +1,5 @@
 <?php
+
 namespace Cliente\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController,
@@ -7,67 +8,101 @@ use Zend\Mvc\Controller\AbstractActionController,
     Zend\Paginator\Adapter\ArrayAdapter,
     Cliente\Form\Formulario as FrmFormulario;
 
-class IndexController extends AbstractActionController
-{
-    public function indexAction()
-    {
-       $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-       
-       //pegar o repositorio da entidade
-       $repo = $em->getRepository('Cliente\Entity\DadosCliente');
-       
-       //buscar todos os dados da tabela cliente
-       $dados = $repo->findAll();
-       
-       //pegar o parametro da rota da pagina
-       $page = $this->params()->fromRoute('page');
-       
-       //criar uma paginação
-       $paginator = new Paginator(new ArrayAdapter($dados));
-       $paginator->setCurrentPageNumber($page);
-       $paginator->setDefaultItemCountPerPage(10);
-       
+class IndexController extends AbstractActionController {
+
+    public function indexAction() {
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        //pegar o repositorio da entidade
+        $repo = $em->getRepository('Cliente\Entity\DadosCliente');
+
+        //buscar todos os dados da tabela cliente
+        $dados = $repo->findAll();
+
+        //pegar o parametro da rota da pagina
+        $page = $this->params()->fromRoute('page');
+
+        //criar uma paginação
+        $paginator = new Paginator(new ArrayAdapter($dados));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(10);
+
         //return array(array('dados'=>$dados));
-       return new ViewModel(array('dados' => $paginator,'page'=>$page));
-    }
-    
-    //pegar o formulario
-    public function newAction(){
-        $form = new FrmFormulario();
-        
-        //pegar o request do post
-        $request = $this->getRequest();
-        
-        //verificar se foi realizado o request
-        if($request->isPost()){
-        
-            //preencher os dados do formulario
-            $form->setData($request->getPost());
-            
-            //verificar se o formulario esta valido
-            if($form->isValid()){
-                //executar a insert
-               
-                $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
-                $service->insert($request->getPost()->toArray());
-                
-                 
-                //retirecionar para a pagina de listar
-                return $this->redirect()->toRoute('cliente',array('controller'=>'cliente-controller-index'));
-                
-            }
-        }
-        
-        //exibi o formulario na view
-        return new ViewModel(array('form'=>$form));
+        return new ViewModel(array('dados' => $paginator, 'page' => $page));
     }
 
-        
-    
-    public function fooAction()
-    {
+    //pegar o formulario
+    public function newAction() {
+        $form = new FrmFormulario();
+
+        //pegar o request do post
+        $request = $this->getRequest();
+
+        //verificar se foi realizado o request
+        if ($request->isPost()) {
+
+            //preencher os dados do formulario
+            $form->setData($request->getPost());
+
+            //verificar se o formulario esta valido
+            if ($form->isValid()) {
+
+                //executar a insert
+                $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
+                $service->insert($request->getPost()->toArray());
+
+
+                //retirecionar para a pagina de listar
+                return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
+            }
+        }
+
+        //exibi o formulario na view
+        return new ViewModel(array('form' => $form));
+    }
+
+    public function editAction() {
+        $form = new FrmFormulario();
+
+        //pegar o request do post
+        $request = $this->getRequest();
+
+        //pegar o id que esta retornando
+        $repository = $this->getEm()->getRepository('Cliente\Entity\DadosCliente');
+
+        //retornar a entidade preenchida
+        $entity = $repository->find($this->params()->fromRoute('id', 0));
+
+        //passar paramentro
+        if ($this->params()->fromRoute('id', 0))
+            $form->setData($entity->toArray());
+
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+
+                $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
+                $service->update($request->getPost()->toArray());
+
+
+                //retirecionar para a pagina de listar
+                return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
+            }
+        }
+        return new ViewModel(array('form' => $form));
+    }
+
+    public function fooAction() {
         // This shows the :controller and :action parameters in default route
         // are working when you browse to /module-specific-root/skeleton/foo
         return array();
     }
+
+    protected function getEm() {
+        if (null === $this->em)
+            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        return $this->em;
+    }
+
 }

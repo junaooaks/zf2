@@ -2,7 +2,8 @@
 namespace Cliente\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use Zend\Stdlib\Hydrator\ClassMethods;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="clientes")
@@ -12,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class DadosCliente {
     
     public function __construct($options = null) {
-        Configuration::configure($this, $options);
+        (new ClassMethods())->hydrate($options, $this);
         
     }
     /**
@@ -51,7 +52,7 @@ class DadosCliente {
     }
     
     public function toArray(){
-        return array('id'=>  $this->getId(), 'nome'=>  $this->getNome());
+        return (new ClassMethods())->extract($this);
     }
 
 

@@ -11,14 +11,14 @@ class Formulario extends Form {
         
         $this->setAttribute('method', 'post');
         //inserir a class de filtrar formulario
-        $this->setInputFilter(new FormularioFilter);
+        //$this->setInputFilter(new FormularioFilter);
         
-        $this->add(array(
-            'name'=>'id',
-            'attributes'=>array(
-                'type'=>'hidden'
-            )
-        ));
+//        $this->add(array(
+//            'name'=>'id',
+//            'attributes'=>array(
+//                'type'=>'hidden'
+//            )
+//        ));
         
         $this->add(array(
             'name'=>'nome',

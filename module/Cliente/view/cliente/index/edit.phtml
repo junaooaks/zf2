@@ -1,10 +1,10 @@
-<h1>Cadastro de Cliente</h1>
+<h1>Alterar dados de Cliente</h1>
 <br />
 
 <?php 
     $form = $this->form;
     
-    $form->setAttribute('action',$this->url('cliente/default-pages', array('controller'=>'cliente-controller-index','action'=>'new')));
+    $form->setAttribute('action',$this->url('cliente/interna-pages', array('controller'=>'cliente-controller-index','action'=>'edit')));
     
     $form->prepare();
     echo $this->form()->openTag($form);

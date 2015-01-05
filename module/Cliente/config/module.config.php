@@ -1,27 +1,28 @@
 <?php
+
 namespace Cliente;
 
 return array(
     'controllers' => array(
         'invokables' => array(
             //'Cliente\Controller\Index' => 'Cliente\Controller\IndexController',
-        
+
             'cliente-controller-index' => 'Cliente\Controller\IndexController',
         ),
     ),
     'router' => array(
         'routes' => array(
             'cliente' => array(
-                'type'    => 'Literal',
+                'type' => 'Literal',
                 'options' => array(
                     // Change this to something specific to your module
-                    'route'    => '/cliente',
+                    'route' => '/cliente',
                     'defaults' => array(
                         // Change this value to reflect the namespace in which
                         // the controllers for your module are found
                         //'__NAMESPACE__' => 'Cliente\Controller',
-                        'controller'    => 'cliente-controller-index',
-                        'action'        => 'index',
+                        'controller' => 'cliente-controller-index',
+                        'action' => 'index',
                     ),
                 ),
                 'may_terminate' => true,
@@ -58,8 +59,22 @@ return array(
                             ),
                         ),
                     ),
+                    'interna-pages' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:action][/:id]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ),
+                            'defaults' => array(
+                                'action' => 'index',
+                                'id' => 1
+                            ),
+                            
+                        ),
+                    ),
                 ),
-                    
             ),
         ),
     ),
@@ -68,7 +83,6 @@ return array(
             'Cliente' => __DIR__ . '/../view',
         ),
     ),
-    
     'doctrine' => array(
         'driver' => array(
             __NAMESPACE__ . '_driver' => array(
