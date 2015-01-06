@@ -10,6 +10,8 @@ use Zend\Mvc\Controller\AbstractActionController,
 
 class IndexController extends AbstractActionController {
 
+    private $em;
+    
     public function indexAction() {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
@@ -80,17 +82,24 @@ class IndexController extends AbstractActionController {
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                
+
                 $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
-                
+
                 $service->update($request->getPost()->toArray());
 
-                
+
                 //retirecionar para a pagina de listar
                 return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
             }
         }
         return new ViewModel(array('form' => $form));
+    }
+
+    public function deleteAction() {
+        //pegar o servico da categoria
+        $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
+        if ($service->delete($this->params()->fromRoute('id', 0)))
+            return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
     }
 
     public function fooAction() {

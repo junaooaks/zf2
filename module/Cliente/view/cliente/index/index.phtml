@@ -17,6 +17,8 @@
             <td><?= $data->getNome(); ?></td>
             <td>
                 <a class="btn btn-success" href="<?php echo $this->url('cliente/interna-pages', array('controller'=>'cliente-controller-index','action'=>'edit','id'=>$data->getId())); ?>">Editar</a>
+                <a class="btn btn-success" href="<?php echo $this->url('cliente/interna-pages', array('controller'=>'cliente-controller-index','action'=>'delete','id'=>$data->getId())); ?>">Deletar</a>
+
             </td>
         </tr>
     <?php endforeach; ?>

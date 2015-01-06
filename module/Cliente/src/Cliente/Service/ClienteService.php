@@ -40,12 +40,9 @@ class ClienteService{
             
         $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $data['id']);
         
-        //chega ate aqui
-        var_dump($data['id']);
-                die();
-        //automatizar os set da entidade
-        $entity = (new ClassMethods())->hydrate($entity, $data);
         
+        //automatizar os set da entidade
+        $entity = (new ClassMethods())->hydrate($data, $entity);
         
         
         $this->em->persist($entity);
@@ -53,6 +50,18 @@ class ClienteService{
         $this->em->flush();
         
         return $entity;
+    }
+    
+    public function delete($id) {
+        $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $id);
+        
+        if($entity){
+            $this->em->remove($entity);
+            $this->em->flush();
+            return $id;
+        }
+        
+        
     }
     
 }
