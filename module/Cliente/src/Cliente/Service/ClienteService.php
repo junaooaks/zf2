@@ -2,66 +2,14 @@
 
 namespace Cliente\Service;
 
-use Doctrine\ORM\EntityManager,
-    Cliente\Entity\DadosCliente,
-    Zend\Stdlib\Hydrator\ClassMethods;
+use Doctrine\ORM\EntityManager;
 
-
-class ClienteService{
-    
-    /**
-     * @var EntityManager
-     */
-    
-    protected $em;
+class ClienteService extends AbstractService{
     
     public function __construct(EntityManager $em) {
-        $this->em = $em;
+        parent::__construct($em);
+        $this->entity= 'Cliente\Entity\DadosCliente';
     }
     
-    public function insert(array $data) {
-        
-        $entity = new DadosCliente($data);
-        
-        //caso nao cria a class entity\configurator
-        //pear os valores desta forma
-        // $entity->setId($data['id']);
-        // $entity->setNome($data['nome']);
-         
-        
-        
-        $this->em->persist($entity);
-        $this->em->flush();
-        return $entity;
-        
-    }
-    
-    public function update(array $data) {
-            
-        $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $data['id']);
-        
-        
-        //automatizar os set da entidade
-        $entity = (new ClassMethods())->hydrate($data, $entity);
-        
-        
-        $this->em->persist($entity);
-        
-        $this->em->flush();
-        
-        return $entity;
-    }
-    
-    public function delete($id) {
-        $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $id);
-        
-        if($entity){
-            $this->em->remove($entity);
-            $this->em->flush();
-            return $id;
-        }
-        
-        
-    }
     
 }
