@@ -40,14 +40,13 @@ class ClienteService{
             
         $entity = $this->em->getReference('Cliente\Entity\DadosCliente', $data['id']);
         
-        
+        //chega ate aqui
+        var_dump($data['id']);
+                die();
         //automatizar os set da entidade
-        //$entity = ClassMethods::hydrate($entity, $data);
+        $entity = (new ClassMethods())->hydrate($entity, $data);
         
-        $entity = new DadosCliente($entity,$data);
         
-//        var_dump('teste');
-//                die();
         
         $this->em->persist($entity);
         
