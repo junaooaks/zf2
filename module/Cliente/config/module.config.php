@@ -74,6 +74,21 @@ return array(
                             ),
                         ),
                     ),
+                    'pesquisa-pages' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:action][/page/:page]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults' => array(
+                                'controller' => 'cliente-controller-index',
+                                'action' => 'index',
+                                'page' => 1
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

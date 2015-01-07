@@ -6,13 +6,21 @@ use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
     Zend\Paginator\Paginator,
     Zend\Paginator\Adapter\ArrayAdapter,
-    Cliente\Form\Formulario as FrmFormulario;
+    Cliente\Form\Formulario as FrmFormulario,
+    Cliente\Form\Pesquisa as FrmPesquisa;
 
 class IndexController extends AbstractActionController {
 
     private $em;
     
     public function indexAction() {
+        
+        /********inserir formulario de pesquisa**/
+        
+        $form = new FrmPesquisa();
+
+        /*************************************************/     
+        
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
         //pegar o repositorio da entidade
@@ -30,7 +38,7 @@ class IndexController extends AbstractActionController {
         $paginator->setDefaultItemCountPerPage(5);
 
         //return array(array('dados'=>$dados));
-        return new ViewModel(array('dados' => $paginator, 'page' => $page));
+        return new ViewModel(array('dados' => $paginator, 'page' => $page, 'form' => $form));
     }
 
     //pegar o formulario
@@ -102,10 +110,31 @@ class IndexController extends AbstractActionController {
             return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
     }
 
-    public function fooAction() {
-        // This shows the :controller and :action parameters in default route
-        // are working when you browse to /module-specific-root/skeleton/foo
-        return array();
+    public function pesquisaAction() {
+        
+        $form = new FrmPesquisa();
+
+        //pegar o request do post
+        $request = $this->getRequest();
+
+        //verificar se foi realizado o request
+        if ($request->isPost()) {
+
+            //preencher os dados do formulario
+            $form->setData($request->getPost());
+
+            //verificar se o formulario esta valido
+            if ($form->isValid()) {
+
+                //executar a insert
+                $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
+                $service->Pesquisa($request->getPost()->toArray());
+
+
+                //retirecionar para a pagina de listar
+                return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
+            }
+        }
     }
 
     protected function getEm() {

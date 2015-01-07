@@ -1,9 +1,23 @@
- <h1>Lista de Nome</h1>
+ <h2>Cadastro Cliente</h2>
 <br/>
 
 <p>
     <a class="btn btn-success" href="<?php echo $this->url('cliente/default-pages', array('controller'=>'cliente-controller-index','action'=>'new')); ?>">Novo Registro</a>
 </p>
+<hr/>
+<br>
+<?php 
+    $form = $this->form;
+    
+    $form->setAttribute('action',$this->url('cliente/pesquisa-pages', array('controller'=>'cliente-controller-index','action'=>'pesquisa')));
+    
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    //echo $this->formHidden($form->get('id'));
+    echo $this->formRow($form->get('nome'));
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag();
+?>
 <table class="table">
     <tr>
         <th>ID</th>
