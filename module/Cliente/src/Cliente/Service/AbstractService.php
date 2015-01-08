@@ -68,16 +68,16 @@ abstract class AbstractService {
                 ->select('*')
                 ->from('clientes');
         $query->andWhere( $query->expr()->like('nome', ':nome') );
-        $query->setParameter(':nome', '%'.$entity.'%');
+        $query->setParameter(':nome', '%'.$data['nome'].'%');
         
         $entity = $query;
         
-        var_dump($entity);
-        die();
+//        var_dump($entity);
+//        die();
         
         
 //        $this->em->persist($entity);
-//        $this->em->flush();
+      $this->em->flush();
         return $entity;
     }
 

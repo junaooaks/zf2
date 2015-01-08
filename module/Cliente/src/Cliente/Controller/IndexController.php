@@ -12,15 +12,15 @@ use Zend\Mvc\Controller\AbstractActionController,
 class IndexController extends AbstractActionController {
 
     private $em;
-    
+
     public function indexAction() {
-        
-        /********inserir formulario de pesquisa**/
-        
+
+        /*         * ******inserir formulario de pesquisa* */
+
         $form = new FrmPesquisa();
 
-        /*************************************************/     
-        
+        /*         * ********************************************** */
+
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
         //pegar o repositorio da entidade
@@ -111,7 +111,7 @@ class IndexController extends AbstractActionController {
     }
 
     public function pesquisaAction() {
-        
+
         $form = new FrmPesquisa();
 
         //pegar o request do post
@@ -131,8 +131,18 @@ class IndexController extends AbstractActionController {
                 $service->Pesquisa($request->getPost()->toArray());
 
 
+                //pegar o parametro da rota da pagina
+                $page = $this->params()->fromRoute('page');
+
+                //criar uma paginação
+                $paginator = new Paginator(new ArrayAdapter($dados));
+                $paginator->setCurrentPageNumber($page);
+                $paginator->setDefaultItemCountPerPage(5);
+
+                return new ViewModel(array('dados' => $paginator, 'page' => $page, 'form' => $form));
+
                 //retirecionar para a pagina de listar
-                return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
+                //return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
             }
         }
     }
