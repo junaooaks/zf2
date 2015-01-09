@@ -20,15 +20,34 @@ class IndexController extends AbstractActionController {
         $form = new FrmPesquisa();
 
         /*         * ********************************************** */
+        //pegar o request do post
+        $request = $this->getRequest();
 
-        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        //verificar se foi realizado o request
+        if ($request->isPost()) {
 
-        //pegar o repositorio da entidade
-        $repo = $em->getRepository('Cliente\Entity\DadosCliente');
+            //preencher os dados do formulario
+            $form->setData($request->getPost());
 
-        //buscar todos os dados da tabela cliente
-        $dados = $repo->findAll();
+            //verificar se o formulario esta valido
+            if ($form->isValid()) {
 
+                $dados = $this->getEm()
+                        ->getRepository('Cliente\Entity\DadosCliente')
+                        ->pesquisa($form->getData()['nome']);
+
+                //var_dump($pesquisa);
+            }
+        } else {
+
+            $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+            //pegar o repositorio da entidade
+            $repo = $em->getRepository('Cliente\Entity\DadosCliente');
+
+            //buscar todos os dados da tabela cliente
+            $dados = $repo->findAll();
+        }
         //pegar o parametro da rota da pagina
         $page = $this->params()->fromRoute('page');
 
@@ -37,7 +56,6 @@ class IndexController extends AbstractActionController {
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(5);
 
-        //return array(array('dados'=>$dados));
         return new ViewModel(array('dados' => $paginator, 'page' => $page, 'form' => $form));
     }
 
@@ -110,42 +128,44 @@ class IndexController extends AbstractActionController {
             return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
     }
 
-    public function pesquisaAction() {
-
-        $form = new FrmPesquisa();
-
-        //pegar o request do post
-        $request = $this->getRequest();
-
-        //verificar se foi realizado o request
-        if ($request->isPost()) {
-
-            //preencher os dados do formulario
-            $form->setData($request->getPost());
-
-            //verificar se o formulario esta valido
-            if ($form->isValid()) {
-
-                //executar a insert
-                $service = $this->getServiceLocator()->get('Cliente\Service\ClienteService');
-                $service->Pesquisa($request->getPost()->toArray());
-
-
-                //pegar o parametro da rota da pagina
-                $page = $this->params()->fromRoute('page');
-
-                //criar uma paginação
-                $paginator = new Paginator(new ArrayAdapter($dados));
-                $paginator->setCurrentPageNumber($page);
-                $paginator->setDefaultItemCountPerPage(5);
-
-                return new ViewModel(array('dados' => $paginator, 'page' => $page, 'form' => $form));
-
-                //retirecionar para a pagina de listar
-                //return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
-            }
-        }
-    }
+//    public function pesquisaAction() {
+//
+//        $form = new FrmPesquisa();
+//
+//        //pegar o request do post
+//        $request = $this->getRequest();
+//
+//        //verificar se foi realizado o request
+//        if ($request->isPost()) {
+//
+//            //preencher os dados do formulario
+//            $form->setData($request->getPost());
+//
+//            //verificar se o formulario esta valido
+//            if ($form->isValid()) {
+//
+//                $dados = $this->getEm()
+//                        ->getRepository('Cliente\Entity\DadosCliente')
+//                        ->pesquisa($form->getData()['nome']);
+//
+//                //var_dump($pesquisa);
+//                //pegar o parametro da rota da pagina
+//                $page = $this->params()->fromRoute('page');
+//
+//                //criar uma paginação
+//                $paginator = new Paginator(new ArrayAdapter($dados));
+//                $paginator->setCurrentPageNumber($page);
+//                $paginator->setDefaultItemCountPerPage(5);
+//
+//                //retirecionar para a pagina de listar
+//                return new ViewModel($this->indexAction(), array('dados' => $paginator, 'page' => $page, 'form' => $form));
+////                return $this->redirect()->toRoute('cliente/pesquisa-pages', array('controller' => 'cliente-controller-index', 'action'=>'pesquisa',
+////                            'dados' => $paginator,
+////                            'page' => $page,
+////                            'form' => $form));
+//            }
+//        }
+//    }
 
     protected function getEm() {
         if (null === $this->em)

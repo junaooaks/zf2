@@ -59,26 +59,26 @@ abstract class AbstractService {
         }
     }
 
-    public function pesquisa(array $data) {
-        
-        $entity = $this->em->getReference($this->entity, $data['nome']);
-        
-               
-        $query = $this->em->createQueryBuilder()
-                ->select('*')
-                ->from('clientes');
-        $query->andWhere( $query->expr()->like('nome', ':nome') );
-        $query->setParameter(':nome', '%'.$data['nome'].'%');
-        
-        $entity = $query;
-        
-//        var_dump($entity);
-//        die();
-        
-        
-//        $this->em->persist($entity);
-      $this->em->flush();
-        return $entity;
-    }
+//    public function pesquisa(array $data) {
+//        
+//        $entity = $this->em->getReference($this->entity, $data['nome']);
+//        
+//               
+//        $query = $this->em->createQueryBuilder()
+//                ->select('*')
+//                ->from('clientes');
+//        $query->andWhere( $query->expr()->like('nome', ':nome') );
+//        $query->setParameter(':nome', '%'.$data['nome'].'%');
+//        
+//        $entity = $query;
+//        
+////        var_dump($entity);
+////        die();
+//        
+//        
+////        $this->em->persist($entity);
+//      $this->em->flush();
+//        return $entity;
+//    }
 
 }
