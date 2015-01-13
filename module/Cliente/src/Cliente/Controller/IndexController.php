@@ -50,7 +50,7 @@ class IndexController extends AbstractActionController {
         }
         //pegar o parametro da rota da pagina
         $page = $this->params()->fromRoute('page');
-
+        
         //criar uma paginação
         $paginator = new Paginator(new ArrayAdapter($dados));
         $paginator->setCurrentPageNumber($page);
@@ -127,45 +127,6 @@ class IndexController extends AbstractActionController {
         if ($service->delete($this->params()->fromRoute('id', 0)))
             return $this->redirect()->toRoute('cliente', array('controller' => 'cliente-controller-index'));
     }
-
-//    public function pesquisaAction() {
-//
-//        $form = new FrmPesquisa();
-//
-//        //pegar o request do post
-//        $request = $this->getRequest();
-//
-//        //verificar se foi realizado o request
-//        if ($request->isPost()) {
-//
-//            //preencher os dados do formulario
-//            $form->setData($request->getPost());
-//
-//            //verificar se o formulario esta valido
-//            if ($form->isValid()) {
-//
-//                $dados = $this->getEm()
-//                        ->getRepository('Cliente\Entity\DadosCliente')
-//                        ->pesquisa($form->getData()['nome']);
-//
-//                //var_dump($pesquisa);
-//                //pegar o parametro da rota da pagina
-//                $page = $this->params()->fromRoute('page');
-//
-//                //criar uma paginação
-//                $paginator = new Paginator(new ArrayAdapter($dados));
-//                $paginator->setCurrentPageNumber($page);
-//                $paginator->setDefaultItemCountPerPage(5);
-//
-//                //retirecionar para a pagina de listar
-//                return new ViewModel($this->indexAction(), array('dados' => $paginator, 'page' => $page, 'form' => $form));
-////                return $this->redirect()->toRoute('cliente/pesquisa-pages', array('controller' => 'cliente-controller-index', 'action'=>'pesquisa',
-////                            'dados' => $paginator,
-////                            'page' => $page,
-////                            'form' => $form));
-//            }
-//        }
-//    }
 
     protected function getEm() {
         if (null === $this->em)

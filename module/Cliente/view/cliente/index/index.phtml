@@ -9,7 +9,7 @@
 <?php 
     $form = $this->form;
     
-    $form->setAttribute('action',$this->url('cliente/pesquisa-pages', array('controller'=>'cliente-controller-index','action'=>'index')));
+    $form->setAttribute('action',$this->url('cliente/default-pages', array('controller'=>'cliente-controller-index','action'=>'index')));
     
     $form->prepare();
     echo $this->form()->openTag($form);

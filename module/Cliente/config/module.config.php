@@ -74,21 +74,7 @@ return array(
                             ),
                         ),
                     ),
-                    'pesquisa-pages' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '[/:action][/page/:page]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'page' => '\d+'
-                            ),
-                            'defaults' => array(
-                                'controller' => 'cliente-controller-index',
-                                'action' => 'index',
-                                'page' => 1
-                            ),
-                        ),
-                    ),
+                    
                 ),
             ),
         ),
@@ -96,6 +82,10 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             'Cliente' => __DIR__ . '/../view',
+        ),
+        //habilitar json
+        'strategies' => array(
+                'ViewJsonStrategy',
         ),
     ),
     'doctrine' => array(
