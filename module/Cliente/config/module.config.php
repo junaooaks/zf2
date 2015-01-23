@@ -27,23 +27,6 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    //Rota para roda a paginação na indexAction
-                    'default-index' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '[/page/:page]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'page' => '\d+'
-                            ),
-                            'defaults' => array(
-                                'controller' => 'cliente-controller-index',
-                                'action' => 'index',
-                                'page' => 1
-                            ),
-                        ),
-                    ),
-                    //Rotas para rodar a paginação em outras action
                     'default-pages' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -74,7 +57,22 @@ return array(
                             ),
                         ),
                     ),
-                    
+                    //Rota para roda a paginação na indexAction
+                    'default-index' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/page/:page]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+'
+                            ),
+                            'defaults' => array(
+                                'controller' => 'cliente-controller-index',
+                                'action' => 'index',
+                                'page' => 1
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

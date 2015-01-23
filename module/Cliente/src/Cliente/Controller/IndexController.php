@@ -56,7 +56,7 @@ class IndexController extends AbstractActionController {
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(5);
 
-        return new ViewModel(array('dados' => $paginator, 'page' => $page, 'form' => $form));
+        return new ViewModel(array('form' => $form ,'dados' => $paginator, 'page' => $page));
     }
 
     //pegar o formulario

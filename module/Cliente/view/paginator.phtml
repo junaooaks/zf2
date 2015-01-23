@@ -5,7 +5,7 @@ $formatUrl  = function ($page) use ($urlPattern){
         return $urlPattern."/page/".$page;
     
     else
-        return preg_replace('/\d/', $page, $urlPattern);
+        return preg_replace('@/page/(\d+)@','/page/'.(int)$page, $urlPattern);
 };
 ?>
 
